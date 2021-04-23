@@ -2,7 +2,7 @@ import requests
 
 
 class config:
-    api_base = 'http://proxy_pool.zzuli.love'
+    api_base = ''
     api_get = api_base + '/get'
     api_get_all = api_base + '/get_all'
     api_get_status = api_base + '/get_status'
