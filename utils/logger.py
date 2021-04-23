@@ -1,5 +1,3 @@
-import sys
-
 from loguru import logger as _logger
 
 logger = _logger
@@ -12,4 +10,12 @@ default_format = (
     "{message}")
 
 logger.remove()
-logger.add(sys.stdout, format=default_format, level='SUCCESS')
+logger.add("./logs/{time}.log",
+           rotation="00:00",
+           retention='1 week',
+           enqueue=True,
+           diagnose=False,
+           level="SUCCESS",
+           format=default_format,
+           encoding='utf-8'
+           )

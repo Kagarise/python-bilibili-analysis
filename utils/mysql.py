@@ -5,9 +5,9 @@ from dbutils.pooled_db import PooledDB
 mysql_args = {
     'host': '',
     'port': 3307,
-    'user': 'root',
+    'user': '',
     'password': '',
-    'database': '',
+    'database': 'bilibili',
     'charset': 'utf8mb4'
 }
 
@@ -16,7 +16,7 @@ pool = PooledDB(pymysql, **mysql_args)
 
 def fetch(sql, args=None):
     conn = pool.connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     cursor.execute(sql, args)
     result = cursor.fetchall()
     cursor.close()
