@@ -44,19 +44,19 @@ class bilibili:
 
     def search(self):
         try:
-            self.create_database()
-            pages = self.get_key_pages()
-            logger.success(f'查询 "{self.key}" 共有 {pages} 页')
-            for page in range(1, pages + 1):
-                logger.success(f'正在查询 "{self.key}" ：第 {page} 页')
-                self.get_bv(page)
-                self.get_data()
-                logger.success(f'"{self.key}" 第{page}页数据查询完成')
-            logger.success(f'获取 "{self.key}" 所有稿件信息成功')
-            if self.commit_data():
-                logger.success(f'搜索关键字 "{self.key}" 并上传到数据库成功')
-            else:
-                logger.error(f'上传 "{self.key}" 数据时失败')
+            if self.create_database() == sql_config.CREATE_SUCCESS:
+                pages = self.get_key_pages()
+                logger.success(f'查询 "{self.key}" 共有 {pages} 页')
+                for page in range(1, pages + 1):
+                    logger.success(f'正在查询 "{self.key}" ：第 {page} 页')
+                    self.get_bv(page)
+                    self.get_data()
+                    logger.success(f'"{self.key}" 第{page}页数据查询完成')
+                logger.success(f'获取 "{self.key}" 所有稿件信息成功')
+                if self.commit_data():
+                    logger.success(f'搜索关键字 "{self.key}" 并上传到数据库成功')
+                else:
+                    logger.error(f'上传 "{self.key}" 数据时失败')
         except:
             logger.error(f'搜索 "{self.key}" 失败')
 
@@ -225,7 +225,7 @@ update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMES
                 commit(sql)
                 return sql_config.CREATE_SUCCESS
             else:
-                logger.info('数据库已存在，无需创建')
+                logger.success('数据库已存在，无需创建')
                 return sql_config.TABLE_EXIST
         except:
             logger.error('创建数据库失败')
