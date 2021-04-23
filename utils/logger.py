@@ -12,4 +12,4 @@ default_format = (
     "{message}")
 
 logger.remove()
-logger.add(sys.stdout, format=default_format, level='DEBUG')
+logger.add(sys.stdout, format=default_format, level='SUCCESS')
