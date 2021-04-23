@@ -196,8 +196,8 @@ class bilibili:
         try:
             table_name = self.key.replace(' ', '')
             # 若每次都重新查找，可加DROP
-            sql = f'DROP TABLE IF EXISTS {table_name};'
-            commit(sql)
+            # sql = f'DROP TABLE IF EXISTS {table_name};'
+            # commit(sql)
             # WARNING: 存在sql注入问题，但并未返回实质性信息
             sql = f'SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = "bilibili" AND TABLE_NAME = "{table_name}"'
             result = fetch(sql)
